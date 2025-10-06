@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsTK", "InsTK\InsTK.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsTK.Client", "InsTK.Client\InsTK.Client.csproj", "{C7B0A1A8-A118-4842-9B32-02DA24067283}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{440C6580-31A3-449F-B765-5A2CF06B66FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilitiesTests", "UtilitiesTests\UtilitiesTests.csproj", "{53F5FFBA-FFB9-45B9-BBCE-0FD24AA51D30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{C7B0A1A8-A118-4842-9B32-02DA24067283}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7B0A1A8-A118-4842-9B32-02DA24067283}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7B0A1A8-A118-4842-9B32-02DA24067283}.Release|Any CPU.Build.0 = Release|Any CPU
+		{440C6580-31A3-449F-B765-5A2CF06B66FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{440C6580-31A3-449F-B765-5A2CF06B66FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{440C6580-31A3-449F-B765-5A2CF06B66FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{440C6580-31A3-449F-B765-5A2CF06B66FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53F5FFBA-FFB9-45B9-BBCE-0FD24AA51D30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53F5FFBA-FFB9-45B9-BBCE-0FD24AA51D30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53F5FFBA-FFB9-45B9-BBCE-0FD24AA51D30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53F5FFBA-FFB9-45B9-BBCE-0FD24AA51D30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
