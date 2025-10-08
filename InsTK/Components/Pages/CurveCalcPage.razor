@@ -20,10 +20,9 @@
 <button class="btn btn-primary" type="button" @onclick="AddGrade">Add score to list</button>
 </div>
 
-<p>
-    @message
-</p>
+<PopupNotification @ref=popup Title="Info" Message="@message"/>
 @code {
+    PopupNotification popup;
     protected List<int> grades = new List<int>();
     protected int newGrade;
     protected string message = "Enter a grade and click the button to add it to the list.";
@@ -36,9 +35,15 @@
         CalcCurve();
     }
 
+    protected override void OnAfterRender(bool firstRender)
+    {
+        popup.ShowModal();
+    }
+
     protected void AddGrade()
     {
         message = "Clicked the button!"; 
+        popup.ShowModal();
         grades.Add(newGrade);
         CalcCurve();
     }
