@@ -1,0 +1,37 @@
+﻿// <copyright file="Objective.cs" company="Rob Garner (rgarner7@cnm.edu)">
+// Copyright (c) Rob Garner (rgarner7@cnm.edu). All rights reserved.
+// </copyright>
+
+namespace InsTK.Shared
+{
+    /// <summary>
+    /// Represents an objective with identification, hierarchy, title, and description.
+    /// </summary>
+    public class Objective
+    {
+        /// <summary>
+        /// Gets or sets the unique identifier for the objective.
+        /// </summary>
+        public string? Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the objective number.
+        /// </summary>
+        public string? ObjNumber { get; set; }
+
+        /// <summary>
+        /// Gets or sets the parent objective identifier.
+        /// </summary>
+        public string? ParentObj { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title of the objective.
+        /// </summary>
+        public string? Title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description of the objective.
+        /// </summary>
+        public string? Description { get; set; }
+    }
+}
