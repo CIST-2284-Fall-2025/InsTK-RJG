@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\InsTK.Client\InsTK.Client.csproj" />
     <ProjectReference Include="..\InsTK.Shared\InsTK.Shared.csproj" />
     <PackageReference Include="Blazor.Bootstrap" Version="3.4.0" />

@@ -2,7 +2,7 @@
 // Copyright (c) Rob Garner (rgarner7@cnm.edu). All rights reserved.
 // </copyright>
 
-namespace InsTK.Shared
+namespace InsTK.Shared.Models
 {
     /// <summary>
     /// Represents a course with its identifying information and description.

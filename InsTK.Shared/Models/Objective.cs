@@ -2,7 +2,7 @@
 // Copyright (c) Rob Garner (rgarner7@cnm.edu). All rights reserved.
 // </copyright>
 
-namespace InsTK.Shared
+namespace InsTK.Shared.Models
 {
     /// <summary>
     /// Represents an objective with identification, hierarchy, title, and description.
