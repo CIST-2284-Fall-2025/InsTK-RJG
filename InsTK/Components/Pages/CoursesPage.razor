@@ -1,4 +1,6 @@
 ﻿@page "/courses"
+@rendermode InteractiveServer
+
 @inject ICoursesDataService dataService
 
 <h3>Courses Page</h3>
@@ -13,20 +15,38 @@ else
     @foreach(var course in courses)
     {
         <li>
-            <p>@course.Id</p>
             <p>@course.Number</p>
             <p>@course.Name</p>
-            <p>@course.Description</p>
+            <p><button type="button" @onclick="(()=>SelectCourse(course))">Select</button> </p>
         </li>
     }
     </ul>
 }
 
+<!--Detail View-->
+@if (course == null)
+{
+    <p>Please select a course from above.</p>
+}
+else
+{  
+    <p>Id: @course.Id</p>
+    <p>Number: @course.Number</p>
+    <p>Name: @course.Name</p>
+    <p>Description: @course.Description</p>
+}
+
 @code {
     protected List<Course>? courses = default!;
+    protected Course? course = default!;
 
     protected override async Task OnInitializedAsync()
     {
         courses = await dataService.GetAllAsync();
+    }
+
+    protected void SelectCourse(Course course)
+    {
+        this.course = course;
     }
 }
