@@ -1,0 +1,32 @@
+﻿@page "/courses"
+@inject ICoursesDataService dataService
+
+<h3>Courses Page</h3>
+
+@if(courses == null)
+{
+    <p>...loading</p>
+}
+else
+{
+    <ul>
+    @foreach(var course in courses)
+    {
+        <li>
+            <p>@course.Id</p>
+            <p>@course.Number</p>
+            <p>@course.Name</p>
+            <p>@course.Description</p>
+        </li>
+    }
+    </ul>
+}
+
+@code {
+    protected List<Course>? courses = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        courses = await dataService.GetAllAsync();
+    }
+}

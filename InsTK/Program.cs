@@ -1,15 +1,28 @@
-using InsTK.Client.Pages;
-using InsTK.Components;
-using InsTK.Components.Account;
-using InsTK.Data;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+// <copyright file="Program.cs" company="Rob Garner (rgarner7@cnm.edu)">
+// Copyright (c) Rob Garner (rgarner7@cnm.edu). All rights reserved.
+// </copyright>
 
 namespace InsTK
 {
+    using InsTK.Client.Pages;
+    using InsTK.Components;
+    using InsTK.Components.Account;
+    using InsTK.Data;
+    using InsTK.Data.Mocks;
+    using InsTK.Shared.Interfaces;
+    using Microsoft.AspNetCore.Components.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+
+    /// <summary>
+    /// Provides the main entry point for the InsTK application.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// The main entry point for the InsTK application.
+        /// </summary>
+        /// <param name="args">An array of command-line arguments.</param>
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -44,6 +57,9 @@ namespace InsTK
             builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
             builder.Services.AddBlazorBootstrap();
+
+            // Data services
+            builder.Services.AddTransient<ICoursesDataService, CourseDataServiceMock>();
 
             var app = builder.Build();
 
