@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilitiesTests", "Utilities
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsTK.Shared", "InsTK.Shared\InsTK.Shared.csproj", "{24EFFEB3-538F-4A25-ADD5-F9E6CF90F4A2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsTKTest", "InsTKTest\InsTKTest.csproj", "{88DE9972-A997-4A36-A1E8-06FF1C6080BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{24EFFEB3-538F-4A25-ADD5-F9E6CF90F4A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24EFFEB3-538F-4A25-ADD5-F9E6CF90F4A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24EFFEB3-538F-4A25-ADD5-F9E6CF90F4A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88DE9972-A997-4A36-A1E8-06FF1C6080BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88DE9972-A997-4A36-A1E8-06FF1C6080BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88DE9972-A997-4A36-A1E8-06FF1C6080BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88DE9972-A997-4A36-A1E8-06FF1C6080BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
