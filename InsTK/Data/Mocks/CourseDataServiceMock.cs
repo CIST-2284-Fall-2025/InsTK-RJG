@@ -55,5 +55,62 @@ namespace InsTK.Data.Mocks
         {
             return Task.FromResult(this.courses);
         }
+
+        /// <summary>
+        /// Asynchronously updates an existing course in the mock data source.
+        /// </summary>
+        /// <param name="course">The <see cref="Course"/> object containing updated course information.</param>
+        /// <returns>
+        /// A <see cref="Task"/> representing the asynchronous update operation.
+        /// </returns>
+        public Task UpdateAsync(Course course)
+        {
+            // Find the course to udate
+            Course? courseToUpdate = this.courses.Where(c => c.Id == course.Id).FirstOrDefault();
+
+            // If we found it update it
+            if (courseToUpdate == null)
+            {
+                throw new ArgumentException("Course not found in database;");
+            }
+
+            courseToUpdate.Number = course.Number;
+            courseToUpdate.Name = course.Name;
+            courseToUpdate.Description = course.Description;
+            return Task.FromResult(courseToUpdate);
+        }
+
+        /// <summary>
+        /// Asynchronously deletes an existing course from the mock data source.
+        /// </summary>
+        /// <param name="course">The <see cref="Course"/> object to delete.</param>
+        /// <returns>
+        /// A <see cref="Task"/> representing the asynchronous delete operation.
+        /// </returns>
+        public Task DeleteAsync(Course course)
+        {
+            Course? courseToDelete = this.courses.Where(c=>c.Id == course.Id).FirstOrDefault();
+
+            if (courseToDelete == null)
+            {
+                throw new ArgumentException("Course not found in database;");
+            }
+
+            this.courses.Remove(courseToDelete);
+            return Task.FromResult(courseToDelete);
+        }
+
+        /// <summary>
+        /// Asynchronously adds a new course to the collection.
+        /// </summary>
+        /// <param name="course">The course to add. The <see cref="Course.Id"/> property will be automatically assigned a new unique
+        /// identifier.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
+        public Task AddAsync(Course course)
+        {
+            course.Id = Guid.NewGuid().ToString();
+            this.courses.Add(course);
+            return Task.FromResult(course);
+        }
     }
 }

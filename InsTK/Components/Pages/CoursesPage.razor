@@ -11,16 +11,17 @@
 }
 else
 {
-    <ul>
+    <ul class="list-group">
     @foreach(var course in courses)
     {
-        <li>
-            <p>@course.Number</p>
-            <p>@course.Name</p>
-            <p><button type="button" @onclick="(()=>SelectCourse(course))">Select</button> </p>
+        <li class="list-group-item">
+                @course.Number - @course.Name &nbsp;&nbsp; 
+                <button class="btn btn-primary" type="button" @onclick="(() => SelectCourse(course))">Select</button>
+                <button class="btn btn-danger" type="button" @onclick="(() => DeleteCourse(course))">Delete</button>
         </li>
     }
     </ul>
+    <button class="btn btn-primary" type="button" @onclick="AddCourse">Add Course</button>
 }
 
 <!--Detail View-->
@@ -29,11 +30,21 @@ else
     <p>Please select a course from above.</p>
 }
 else
-{  
+{
     <p>Id: @course.Id</p>
-    <p>Number: @course.Number</p>
-    <p>Name: @course.Name</p>
-    <p>Description: @course.Description</p>
+    <div class="mb-3">
+        <label for="number" class="form-label">Number</label>
+        <input @bind-value="course.Number" type="text" class="form-control" id="number" aria-describedby="course number">
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input @bind-value="course.Name" type =" text" class="form-control" id="name" aria-describedby="course name">
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea @bind="course.Description" class="form-control" id="description" aria-describedby="course description"/>
+    </div>
+    <p><button class="btn btn-primary" type="button" @onclick="UpdateCourse">Submit</button> </p>
 }
 
 @code {
@@ -48,5 +59,38 @@ else
     protected void SelectCourse(Course course)
     {
         this.course = course;
+    }
+
+    protected void UpdateCourse()
+    {
+        if(course == null)
+        {
+            //TODO: Display error
+            return;
+        }
+        if(course.Id == null)
+        {
+            dataService.AddAsync(course);
+        }
+        else
+        {            
+            dataService.UpdateAsync(course);
+        }
+        course = null;
+    }
+
+    protected void DeleteCourse(Course course)
+    {
+        if (course == null)
+        {
+            //TODO: Display error
+            return;
+        }
+        dataService.DeleteAsync(course);
+    }
+
+    protected void AddCourse()
+    {
+        course = new Course();
     }
 }
