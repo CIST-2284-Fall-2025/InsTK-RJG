@@ -1,9 +1,27 @@
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+// <copyright file="ApplicationDbContext.cs" company="Rob Garner (rgarner7@cnm.edu)">
+// Copyright (c) Rob Garner (rgarner7@cnm.edu). All rights reserved.
+// </copyright>
 
 namespace InsTK.Data
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options)
+    using InsTK.Shared.Models;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
+
+    /// <summary>
+    /// Represents the application's database context, including Identity and custom entities.
+    /// </summary>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationDbContext"/> class.
+        /// </summary>
+        /// <param name="options">The options to be used by a <see cref="DbContext"/>.</param>
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<Course> Courses { get; set; }
     }
 }
