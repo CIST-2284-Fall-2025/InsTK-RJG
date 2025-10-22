@@ -9,6 +9,7 @@ namespace InsTK
     using InsTK.Components.Account;
     using InsTK.Data;
     using InsTK.Data.Mocks;
+    using InsTK.Data.Services;
     using InsTK.Shared.Interfaces;
     using Microsoft.AspNetCore.Components.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -59,7 +60,7 @@ namespace InsTK
             builder.Services.AddBlazorBootstrap();
 
             // Data services
-            builder.Services.AddTransient<ICoursesDataService, CourseDataServiceMock>();
+            builder.Services.AddTransient<ICoursesDataService, CoursesDataService>();
 
             var app = builder.Build();
 
@@ -89,7 +90,18 @@ namespace InsTK
             // Add additional endpoints required by the Identity /Account Razor components.
             app.MapAdditionalIdentityEndpoints();
 
+            RunMigrations(app);
+
             app.Run();
+        }
+
+        private static void RunMigrations(WebApplication app)
+        {
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                db.Database.Migrate();
+            }
         }
     }
 }
