@@ -69,7 +69,7 @@ namespace InsTK.Data.Services
         {
             // Find the one in the database
             var curentCourse = await context.Courses.Where(c => c.Id == course.Id).FirstOrDefaultAsync();
-            context.Courses.Remove(course);
+            context.Courses.Remove(curentCourse);
             await context.SaveChangesAsync();
         }
     }
