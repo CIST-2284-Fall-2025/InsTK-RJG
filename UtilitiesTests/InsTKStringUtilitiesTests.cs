@@ -1,11 +1,21 @@
-﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel.Utilities;
-using Utilities;
+﻿// <copyright file="InsTKStringUtilitiesTests.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace UtilitiesTests
 {
+    using Microsoft.VisualStudio.TestPlatform.ObjectModel.Utilities;
+    using Utilities;
+
+    /// <summary>
+    /// Contains unit tests for the <see cref="InsTKStringUtilities"/> class.
+    /// </summary>
     [TestClass]
     public sealed class InsTKStringUtilitiesTests
     {
+        /// <summary>
+        /// Tests that one 'y' is found in "mysterious".
+        /// </summary>
         [TestMethod]
         public void ShouldFindOneYInMysterious()
         {
@@ -17,6 +27,9 @@ namespace UtilitiesTests
             Assert.AreEqual(expectedResult, actualResult);
         }
 
+        /// <summary>
+        /// Tests that two 's' are found in "mysterious".
+        /// </summary>
         [TestMethod]
         public void ShouldFindTwoSInMysterious()
         {
@@ -28,6 +41,9 @@ namespace UtilitiesTests
             Assert.AreEqual(expectedResult, actualResult);
         }
 
+        /// <summary>
+        /// Tests that the search is case-insensitive.
+        /// </summary>
         [TestMethod]
         public void SearchShouldBeCaseInsensitive()
         {
@@ -39,6 +55,9 @@ namespace UtilitiesTests
             Assert.AreEqual(expectedResult, actualResult);
         }
 
+        /// <summary>
+        /// Tests that the search is case-insensitive when the string to find is uppercase.
+        /// </summary>
         [TestMethod]
         public void SearchShouldBeCaseInsensitiveGivenUppercaseStringToFind()
         {
@@ -50,6 +69,9 @@ namespace UtilitiesTests
             Assert.AreEqual(expectedResult, actualResult);
         }
 
+        /// <summary>
+        /// Tests that null input is handled correctly.
+        /// </summary>
         [TestMethod]
         public void ShoulhBeAbleToHandleNulls()
         {
@@ -61,6 +83,9 @@ namespace UtilitiesTests
             Assert.AreEqual(expectedResult, actualResult);
         }
 
+        /// <summary>
+        /// Tests that not finding the string returns 0.
+        /// </summary>
         [TestMethod]
         public void NotFoundShouldReturnMinus1()
         {
