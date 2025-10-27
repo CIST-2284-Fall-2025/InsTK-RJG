@@ -13,7 +13,7 @@
                 @ChildContent
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" type="button" @onclick="UpdateCourseAsync" @* <-- How do I reference this method? *@>Submit</button>
+                <button class="btn btn-primary" type="button" @onclick="OnSubmitClickAsync">Submit</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="CloseModal">Close</button>
             </div>
         </div>
@@ -30,8 +30,12 @@
 @code {
     [Parameter]
     public string Title { get; set; } = "Notification";
+
     [Parameter]
     public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback SubmitMethod { get; set; }
 
     string modalClass = "";
     string modalDisplay = "none;";
@@ -51,5 +55,10 @@
         modalDisplay = "none;";
         ShowBackdrop = false;
         StateHasChanged();
+    }
+
+    public async Task OnSubmitClickAsync()
+    {
+        await SubmitMethod.InvokeAsync();
     }
 }
