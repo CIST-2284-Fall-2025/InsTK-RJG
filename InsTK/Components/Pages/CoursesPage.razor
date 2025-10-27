@@ -24,30 +24,34 @@ else
     <button class="btn btn-primary" type="button" @onclick="AddCourse">Add Course</button>
 }
 
-<!--Detail View-->
-@if (course == null)
-{
-    <p>Please select a course from above.</p>
-}
-else
-{
-    <p>Id: @course.Id</p>
-    <div class="mb-3">
-        <label for="number" class="form-label">Number</label>
-        <input @bind-value="course.Number" type="text" class="form-control" id="number" aria-describedby="course number">
-    </div>
-    <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
-        <input @bind-value="course.Name" type =" text" class="form-control" id="name" aria-describedby="course name">
-    </div>
-    <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea @bind="course.Description" class="form-control" id="description" aria-describedby="course description"/>
-    </div>
-    <p><button class="btn btn-primary" type="button" @onclick="UpdateCourseAsync">Submit</button> </p>
-}
+<ModalDialogue @ref="popup" Title="Test Message" SubmitMethod="UpdateCourseAsync">
+    @if (course == null)
+    {
+        <p>Please select a course from above.</p>
+    }
+    else
+    {
+        <p>Id: @course.Id</p>
+        <div class="mb-3">
+            <label for="number" class="form-label">Number</label>
+            <input @bind-value="course.Number" type="text" class="form-control" id="number" aria-describedby="course number">
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input @bind-value="course.Name" type=" text" class="form-control" id="name" aria-describedby="course name">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea @bind="course.Description" class="form-control" id="description" aria-describedby="course description" />
+        </div>
+        <p>
+           
+        </p>
+    }
+</ModalDialogue>
 
 @code {
+    private ModalDialogue popup;
     protected List<Course>? courses = default!;
     protected Course? course = default!;
 
@@ -59,9 +63,10 @@ else
     protected void SelectCourse(Course course)
     {
         this.course = course;
+        popup.ShowModal();
     }
 
-    protected async void UpdateCourseAsync()
+    protected async Task UpdateCourseAsync()
     {
         if(course == null)
         {
@@ -79,6 +84,7 @@ else
         }
         course = null;
         StateHasChanged();
+        popup.CloseModal();
     }
 
     protected async Task DeleteCourseAsync(Course course)
@@ -95,5 +101,6 @@ else
     protected void AddCourse()
     {
         course = new Course();
+        popup.ShowModal();
     }
 }
