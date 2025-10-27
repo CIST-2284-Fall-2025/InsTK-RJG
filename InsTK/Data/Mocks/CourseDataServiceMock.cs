@@ -57,6 +57,19 @@ namespace InsTK.Data.Mocks
         }
 
         /// <summary>
+        /// Asynchronously adds a new course to the collection.
+        /// </summary>
+        /// <param name="course">The course to add. The <see cref="Course.Id"/> property will be automatically assigned a new unique
+        /// identifier.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
+        public Task AddAsync(Course course)
+        {
+            course.Id = Guid.NewGuid().ToString();
+            this.courses.Add(course);
+            return Task.FromResult(course);
+        }
+
+        /// <summary>
         /// Asynchronously updates an existing course in the mock data source.
         /// </summary>
         /// <param name="course">The <see cref="Course"/> object containing updated course information.</param>
@@ -98,19 +111,6 @@ namespace InsTK.Data.Mocks
 
             this.courses.Remove(courseToDelete);
             return Task.FromResult(courseToDelete);
-        }
-
-        /// <summary>
-        /// Asynchronously adds a new course to the collection.
-        /// </summary>
-        /// <param name="course">The course to add. The <see cref="Course.Id"/> property will be automatically assigned a new unique
-        /// identifier.</param>
-        /// <returns>A task that represents the asynchronous operation.</returns>
-        public Task AddAsync(Course course)
-        {
-            course.Id = Guid.NewGuid().ToString();
-            this.courses.Add(course);
-            return Task.FromResult(course);
         }
     }
 }

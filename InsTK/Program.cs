@@ -61,6 +61,7 @@ namespace InsTK
 
             // Data services
             builder.Services.AddTransient<ICoursesDataService, CoursesDataService>();
+            builder.Services.AddTransient<IObjectivesDataService, ObjectivesDataServiceMock>();
 
             var app = builder.Build();
 

@@ -1,0 +1,109 @@
+﻿@page "/objectives"
+@rendermode InteractiveServer
+
+@inject IObjectivesDataService dataService
+
+<h3>Objectives Page</h3>
+@if (objectives == null)
+{
+    <p>...loading</p>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var objective in objectives)
+        {
+            <li class="list-group-item">
+                @objective.ObjNumber - @objective.Title &nbsp;&nbsp;
+                <button class="btn btn-primary" type="button" @onclick="(() => SelectObjective(objective))">Select</button>
+                <button class="btn btn-danger" type="button" @onclick="(() => DeleteObjectiveAsync(objective))">Delete</button>
+            </li>
+        }
+    </ul>
+    <button class="btn btn-primary" @onclick="AddObjective" type="button">Add Objective</button>
+}
+
+<ModalDialogue @ref="dialogue" Title="Edit Objective" SubmitMethod="UpdateObjectiveAsync">
+    @if (objective == null)
+    {
+        <p>Please select a course from above.</p>
+    }
+    else
+    {
+        <p>Id: @objective.Id</p>
+        <div class="mb-3">
+            <label for="objNumber" class="form-label">Objective Number</label>
+            <input @bind-value="objective.ObjNumber" type="text" class="form-control" id="objNumber" aria-describedby="objective number">
+        </div>
+        <div class="mb-3">
+            <label for="parentObj" class="form-label">Parent Objective Number</label>
+            <input @bind-value="objective.ParentObj" type="text" class="form-control" id="parentObj" aria-describedby="Parent objective number">
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input @bind-value="objective.Title" type="text" class="form-control" id="title" aria-describedby="Objective title">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea @bind="objective.Description" class="form-control" id="description" aria-describedby="objective description" />
+        </div>
+    }
+</ModalDialogue>
+
+
+@code {
+    protected ModalDialogue dialogue;
+    protected List<Objective>? objectives;
+    protected Objective? objective;
+
+    protected override async Task OnInitializedAsync()
+    {
+        objectives = await dataService.GetAllAsync();
+    }
+
+    protected void AddObjective()
+    {
+        objective = new Objective();
+        dialogue.ShowModal();
+    }
+
+    protected void SelectObjective(Objective objective)
+    {
+        this.objective = objective;
+        dialogue.ShowModal();
+    }
+
+    protected async Task UpdateObjectiveAsync()
+    {
+        if (objective == null)
+        {
+            //TODO: Display error
+            return;
+        }
+        if (objective.Id == null)
+        {
+            await dataService.AddAsync(objective);
+            objectives = await dataService.GetAllAsync();
+        }
+        else
+        {
+            await dataService.UpdateAsync(objective);
+        }
+        objective = null;
+        StateHasChanged();
+        dialogue.CloseModal();
+    }
+
+    protected async Task DeleteObjectiveAsync(Objective objective)
+    {
+        if (objective == null)
+        {
+            //TODO: Display error
+            return;
+        }
+        await dataService.DeleteAsync(objective);
+        objectives = await dataService.GetAllAsync();
+    }
+
+
+}
