@@ -4,9 +4,9 @@
 
 namespace InsTK.Shared.Interfaces
 {
-    using InsTK.Shared.Models;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using InsTK.Shared.Models;
 
     /// <summary>
     /// Provides methods for managing <see cref="Objective"/> entities in the data store.

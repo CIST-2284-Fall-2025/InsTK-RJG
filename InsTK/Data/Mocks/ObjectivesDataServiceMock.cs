@@ -68,7 +68,7 @@ namespace InsTK.Data.Mocks
         /// </returns>
         public Task<List<Objective>> GetAllAsync()
         {
-            return Task.FromResult(this.objectives);
+            return Task.FromResult(this.objectives.OrderBy(obj => obj.ObjNumber).ToList());
         }
 
         /// <summary>

@@ -53,7 +53,7 @@ namespace InsTK.Data.Mocks
         /// </returns>
         public Task<List<Course>> GetAllAsync()
         {
-            return Task.FromResult(this.courses);
+            return Task.FromResult(this.courses.OrderBy(c => c.Number).ToList());
         }
 
         /// <summary>
