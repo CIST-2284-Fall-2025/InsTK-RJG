@@ -14,6 +14,7 @@ namespace InsTK
     using Microsoft.AspNetCore.Components.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Provides the main entry point for the InsTK application.
@@ -24,7 +25,8 @@ namespace InsTK
         /// The main entry point for the InsTK application.
         /// </summary>
         /// <param name="args">An array of command-line arguments.</param>
-        public static void Main(string[] args)
+        /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -92,6 +94,40 @@ namespace InsTK
             app.MapAdditionalIdentityEndpoints();
 
             RunMigrations(app);
+
+            // Add default admin user
+            using (var scope = app.Services.CreateScope())
+            {
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                var roles = new[] { "Admin", "Instructor" };
+                foreach (var role in roles)
+                {
+                    if (!await roleManager.RoleExistsAsync(role))
+                    {
+                        IdentityRole roleRole = new IdentityRole(role);
+                        await roleManager.CreateAsync(roleRole);
+                    }
+                }
+            }
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                string? email = builder.Configuration.GetSection("Admin:Email").Value;
+                string? password = builder.Configuration.GetSection("Admin:Password").Value;
+                if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password) && await userManager.FindByNameAsync(email) == null)
+                {
+                    var user = new ApplicationUser();
+                    user.Email = email;
+                    user.UserName = email;
+
+                    // Optional, add if you want the account live right away without email confirmation
+                    user.EmailConfirmed = true; 
+
+                    var results = await userManager.CreateAsync(user, password);
+                    await userManager.AddToRoleAsync(user, "Admin");
+                }
+            }
 
             app.Run();
         }
