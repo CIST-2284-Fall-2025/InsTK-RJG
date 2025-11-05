@@ -1,7 +1,9 @@
 ﻿@page "/courses"
+
 @rendermode InteractiveServer
 
 @inject ICoursesDataService dataService
+@attribute [Authorize]
 
 <h3>Courses Page</h3>
 

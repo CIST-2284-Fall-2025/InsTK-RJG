@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using System.Security.Claims;
 using InsTK.Client;
 using InsTK.Data;
 using Microsoft.AspNetCore.Components;
@@ -8,6 +6,9 @@ using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using System.Data;
+using System.Diagnostics;
+using System.Security.Claims;
 
 namespace InsTK.Components.Account
 {
@@ -88,6 +89,7 @@ namespace InsTK.Components.Account
             {
                 var userId = principal.FindFirst(options.ClaimsIdentity.UserIdClaimType)?.Value;
                 var email = principal.FindFirst(options.ClaimsIdentity.EmailClaimType)?.Value;
+                var roles = principal.FindAll(ClaimTypes.Role).Select(x => x.Value); // Added for roles
 
                 if (userId != null && email != null)
                 {
@@ -95,6 +97,7 @@ namespace InsTK.Components.Account
                     {
                         UserId = userId,
                         Email = email,
+                        Roles = roles,
                     });
                 }
             }
