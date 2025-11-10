@@ -21,9 +21,9 @@ namespace InsTK.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Course>?> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync()
         {
-            return await dataService?.GetAllAsync();
+            return Ok(await dataService?.GetAllAsync());
         }
 
     }
