@@ -65,6 +65,9 @@ namespace InsTK
             // Data services
             builder.Services.AddTransient<ICoursesDataService, CoursesDataService>();
 
+            // To enable web api
+            builder.Services.AddControllers();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -128,6 +131,9 @@ namespace InsTK
                     await userManager.AddToRoleAsync(user, "Admin");
                 }
             }
+
+            // To enable web api
+            app.MapControllers();
 
             app.Run();
         }
