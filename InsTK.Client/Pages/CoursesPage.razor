@@ -1,12 +1,10 @@
 ﻿@page "/client/courses"
-@using InsTK.Client.SharedComponents
-@using InsTK.Shared.Interfaces
 @rendermode InteractiveWebAssembly
 
 @inject ICoursesDataService dataService
+@attribute [Authorize(Roles = "Admin")]
 
-
-<h3>Courses Page</h3>
+ <h3>Courses Page</h3>
 
 @if(courses == null)
 {
@@ -56,7 +54,7 @@ else
 @code {
     private ModalDialogue popup;
     protected List<Course>? courses = default!;
-    protected Course? course = default!;
+    protected Course? course = null;
 
     protected override async Task OnInitializedAsync()
     {
@@ -92,12 +90,12 @@ else
 
     protected async Task DeleteCourseAsync(Course course)
     {
-        if (course == null)
+        if (course == null || course.Id == null)
         {
             //TODO: Display error
             return;
         }
-        await dataService.DeleteAsync(course);
+        await dataService.DeleteAsync(course.Id);
         courses = await dataService.GetAllAsync();
     }
 

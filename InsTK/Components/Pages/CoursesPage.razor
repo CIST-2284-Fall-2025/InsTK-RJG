@@ -91,12 +91,12 @@ else
 
     protected async Task DeleteCourseAsync(Course course)
     {
-        if (course == null)
+        if (course == null || course.Id == null)
         {
             //TODO: Display error
             return;
         }
-        await dataService.DeleteAsync(course);
+        await dataService.DeleteAsync(course.Id);
         courses = await dataService.GetAllAsync();
     }
 

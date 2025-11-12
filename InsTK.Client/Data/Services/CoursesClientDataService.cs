@@ -15,7 +15,7 @@ namespace InsTK.Client.Data.Services
 
         public async Task<List<Course>> GetAllAsync()
         {
-            var courses = await http.GetFromJsonAsync<List<Course>>("/api/Courses");
+            var courses = await this.http.GetFromJsonAsync<List<Course>>("/api/Courses");
             if (courses == null)
             {
                 return new List<Course>();
@@ -26,19 +26,19 @@ namespace InsTK.Client.Data.Services
             }
         }
 
-        public Task AddAsync(Course course)
+        public async Task AddAsync(Course course)
         {
-            throw new NotImplementedException();
+            await this.http.PostAsJsonAsync<Course>("/api/Courses", course);
         }
 
-        public Task UpdateAsync(Course course)
+        public async Task UpdateAsync(Course course)
         {
-            throw new NotImplementedException();
+            await this.http.PutAsJsonAsync<Course>("/api/Courses", course);
         }
 
-        public Task DeleteAsync(Course course)
+        public async Task DeleteAsync(string id)
         {
-            throw new NotImplementedException();
+            await this.http.DeleteAsync($"/api/Courses/{id}");
         }
     }
 }
