@@ -1,19 +1,22 @@
 ﻿@page "/client/courses"
-@rendermode InteractiveWebAssembly
+@using InsTK.Shared.ViewModels
+@rendermode InteractiveAuto
 
 @inject ICoursesDataService dataService
+@inject PersistentComponentState ApplicationState
+
 @attribute [Authorize(Roles = "Admin")]
 
  <h3>Courses Page</h3>
 
-@if(courses == null)
+@if(model?.Courses == null)
 {
     <p>...loading</p>
 }
 else
 {
     <ul class="list-group">
-    @foreach(var course in courses)
+    @foreach(var course in model.Courses)
     {
         <li class="list-group-item">
                 @course.Number - @course.Name &nbsp;&nbsp; 
@@ -26,24 +29,24 @@ else
 }
 
 <ModalDialogue @ref="popup" Title="Test Message" SubmitMethod="UpdateCourseAsync">
-    @if (course == null)
+    @if (model?.Course == null)
     {
         <p>Please select a course from above.</p>
     }
     else
     {
-        <p>Id: @course.Id</p>
+        <p>Id: @model.Course.Id</p>
         <div class="mb-3">
             <label for="number" class="form-label">Number</label>
-            <input @bind-value="course.Number" type="text" class="form-control" id="number" aria-describedby="course number">
+            <input @bind-value="model.Course.Number" type="text" class="form-control" id="number" aria-describedby="course number">
         </div>
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
-            <input @bind-value="course.Name" type=" text" class="form-control" id="name" aria-describedby="course name">
+            <input @bind-value="model.Course.Name" type=" text" class="form-control" id="name" aria-describedby="course name">
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea @bind="course.Description" class="form-control" id="description" aria-describedby="course description" />
+            <textarea @bind="model.Course.Description" class="form-control" id="description" aria-describedby="course description" />
         </div>
         <p>
            
@@ -51,39 +54,60 @@ else
     }
 </ModalDialogue>
 
-@code {
+    @code {
     private ModalDialogue popup;
-    protected List<Course>? courses = default!;
-    protected Course? course = null;
+    protected CoursesPageVM? model;
+
+    private PersistingComponentStateSubscription _subscription;
 
     protected override async Task OnInitializedAsync()
     {
-        courses = await dataService.GetAllAsync();
+        _subscription = ApplicationState.RegisterOnPersisting(Persist);
+
+        var foundInState = ApplicationState.TryTakeFromJson<CoursesPageVM>("model", out CoursesPageVM? storedState);
+
+        if (foundInState && storedState != null)
+        {
+            model = storedState;
+        }
+        else
+        {
+            model = new CoursesPageVM();
+            model.Courses = await dataService.GetAllAsync();
+            model.Course = null;
+        }
+        
+    }
+
+    private Task Persist()
+    {
+        ApplicationState.PersistAsJson("model", model);
+        return Task.CompletedTask;
     }
 
     protected void SelectCourse(Course course)
     {
-        this.course = course;
+        this.model.Course = course;
         popup.ShowModal();
     }
 
     protected async Task UpdateCourseAsync()
     {
-        if(course == null)
+        if (model.Course == null)
         {
             //TODO: Display error
             return;
         }
-        if(course.Id == null)
+        if (model.Course.Id == null)
         {
-            await dataService.AddAsync(course);
-            courses = await dataService.GetAllAsync();
+            await dataService.AddAsync(model.Course);
+            model.Courses = await dataService.GetAllAsync();
         }
         else
         {            
-            await dataService.UpdateAsync(course);
+            await dataService.UpdateAsync(model.Course);
         }
-        course = null;
+        model.Course = null;
         StateHasChanged();
         popup.CloseModal();
     }
@@ -96,12 +120,12 @@ else
             return;
         }
         await dataService.DeleteAsync(course.Id);
-        courses = await dataService.GetAllAsync();
+        this.model.Courses = await dataService.GetAllAsync();
     }
 
     protected void AddCourse()
     {
-        course = new Course();
+        model.Course = new Course();
         popup.ShowModal();
     }
 }
