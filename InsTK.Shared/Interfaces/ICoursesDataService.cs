@@ -18,6 +18,13 @@ namespace InsTK.Shared.Interfaces
         public Task<List<Course>> GetAllAsync();
 
         /// <summary>
+        /// Asynchronously adds the specified <see cref="Course"/> entity to the data store.
+        /// </summary>
+        /// <param name="course">The <see cref="Course"/> entity to add.</param>
+        /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
+        public Task AddAsync(Course course);
+
+        /// <summary>
         /// Asynchronously updates the specified <see cref="Course"/> entity.
         /// </summary>
         /// <param name="course">The <see cref="Course"/> to update.</param>
@@ -27,15 +34,8 @@ namespace InsTK.Shared.Interfaces
         /// <summary>
         /// Asynchronously deletes the specified <see cref="Course"/> entity.
         /// </summary>
-        /// <param name="course">The <see cref="Course"/> entity to delete from the data store.</param>
+        /// <param name="id">The identifier of the <see cref="Course"/> entity to delete from the data store.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
-        public Task DeleteAsync(Course course);
-
-        /// <summary>
-        /// Asynchronously adds the specified <see cref="Course"/> entity to the data store.
-        /// </summary>
-        /// <param name="course">The <see cref="Course"/> entity to add.</param>
-        /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
-        public Task AddAsync(Course course);
+        public Task DeleteAsync(string id);
     }
 }

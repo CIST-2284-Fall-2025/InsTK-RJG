@@ -63,14 +63,20 @@ namespace InsTK.Data.Services
         /// <summary>
         /// Deletes a course asynchronously.
         /// </summary>
-        /// <param name="course">The course to delete.</param>
+        /// <param name="id">The ID of the course to delete.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        public async Task DeleteAsync(Course course)
+        public async Task DeleteAsync(string id)
         {
             // Find the one in the database
-            var curentCourse = await context.Courses.Where(c => c.Id == course.Id).FirstOrDefaultAsync();
-            context.Courses.Remove(curentCourse);
-            await context.SaveChangesAsync();
+            var curentCourse = await this.context.Courses.Where(c => c.Id == id).FirstOrDefaultAsync();
+
+            if (curentCourse == null)
+            {
+                return;
+            }
+
+            this.context.Courses.Remove(curentCourse);
+            await this.context.SaveChangesAsync();
         }
     }
 }
