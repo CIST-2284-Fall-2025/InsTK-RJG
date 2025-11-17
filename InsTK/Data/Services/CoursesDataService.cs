@@ -26,6 +26,7 @@ namespace InsTK.Data.Services
         /// <returns>A task that represents the asynchronous operation. The task result contains a list of courses.</returns>
         public async Task<List<Course>> GetAllAsync()
         {
+            await Task.Delay(5000); // Simulate long load
             return await context.Courses.ToListAsync();
         }
 
