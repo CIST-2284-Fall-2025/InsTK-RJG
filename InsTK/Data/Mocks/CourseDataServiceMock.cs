@@ -100,9 +100,9 @@ namespace InsTK.Data.Mocks
         /// <returns>
         /// A <see cref="Task"/> representing the asynchronous delete operation.
         /// </returns>
-        public Task DeleteAsync(Course course)
+        public Task DeleteAsync(string id)
         {
-            Course? courseToDelete = this.courses.Where(c=>c.Id == course.Id).FirstOrDefault();
+            Course? courseToDelete = this.courses.Where(c=>c.Id == id).FirstOrDefault();
 
             if (courseToDelete == null)
             {

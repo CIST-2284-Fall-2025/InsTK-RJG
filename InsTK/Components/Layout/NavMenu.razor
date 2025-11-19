@@ -54,13 +54,20 @@
         </div>
 
         <div class="nav-item px-3">
+            <NavLink class="nav-link" href=ServerAuth">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span>
+                Server Authorization
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="auth">
                 <span class="bi bi-lock-nav-menu" aria-hidden="true"></span> Auth Required
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="courses">
+            <NavLink class="nav-link" href="client/courses">
                 <span class="bi bi-lock-nav-menu" aria-hidden="true"></span> Courses
             </NavLink>
         </div>
@@ -94,6 +101,13 @@
                     </NavLink>
                 </div>
             </NotAuthorized>
+        </AuthorizeView>
+        <AuthorizeView Roles="Admin">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="UserManagement">
+                    <span class="bi bi-people" aria-hidden="true"></span> Manage Users
+                </NavLink>
+            </div>
         </AuthorizeView>
     </nav>
 </div>
