@@ -26,6 +26,7 @@ namespace InsTK.Client
 
             // Data services
             builder.Services.AddTransient<ICoursesDataService, CoursesClientDataService>();
+            builder.Services.AddTransient<IObjectivesDataService, ObjectivesClientDataService>();
 
             await builder.Build().RunAsync();
         }

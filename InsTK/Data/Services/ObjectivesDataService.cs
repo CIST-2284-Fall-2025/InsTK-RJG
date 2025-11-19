@@ -75,9 +75,9 @@ namespace InsTK.Data.Services
         /// </summary>
         /// <param name="objective">The objective to delete.</param>
         /// <exception cref="ArgumentException">Thrown if the objective is not found.</exception>
-        public async Task DeleteAsync(Objective objective)
+        public async Task DeleteAsync(string id)
         {
-            Objective? objectiveToDelete = this.context.Objectives.Where(o => o.Id == objective.Id).FirstOrDefault();
+            Objective? objectiveToDelete = this.context.Objectives.Where(o => o.Id == id).FirstOrDefault();
 
             if (objectiveToDelete == null)
             {

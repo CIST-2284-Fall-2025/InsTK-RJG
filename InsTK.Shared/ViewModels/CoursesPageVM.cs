@@ -4,8 +4,8 @@
 
 namespace InsTK.Shared.ViewModels
 {
-    using InsTK.Shared.Models;
     using System.Collections.Generic;
+    using InsTK.Shared.Models;
 
     /// <summary>
     /// ViewModel for the Courses page, containing a list of courses and a selected course.

@@ -46,6 +46,6 @@ namespace InsTK.Shared.Interfaces
         /// <returns>
         /// A <see cref="Task"/> representing the result of the asynchronous operation.
         /// </returns>
-        Task DeleteAsync(Objective objective);
+        Task DeleteAsync(string id);
     }
 }

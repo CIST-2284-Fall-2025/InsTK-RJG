@@ -7,7 +7,6 @@ namespace InsTK.Controllers
     using InsTK.Shared.Interfaces;
     using InsTK.Shared.Models;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]")] // api/Courses

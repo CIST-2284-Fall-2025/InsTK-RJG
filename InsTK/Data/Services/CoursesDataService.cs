@@ -53,7 +53,7 @@ namespace InsTK.Data.Services
         public async Task UpdateAsync(Course course)
         {
             // Find the one in the database
-            var curentCourse = await this.context.Courses.Where(c=>c.Id == course.Id).FirstOrDefaultAsync();
+            var curentCourse = await this.context.Courses.Where(c => c.Id == course.Id).FirstOrDefaultAsync();
 
             if (curentCourse == null)
             {

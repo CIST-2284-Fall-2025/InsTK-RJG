@@ -119,9 +119,9 @@ namespace InsTK.Data.Mocks
         /// A <see cref="Task"/> representing the result of the asynchronous operation.
         /// </returns>
         /// <exception cref="ArgumentException">Thrown when the objective is not found in the database.</exception>
-        public Task DeleteAsync(Objective objective)
+        public Task DeleteAsync(string id)
         {
-            Objective? objectiveToDelete = this.objectives.Where(o => o.Id == objective.Id).FirstOrDefault();
+            Objective? objectiveToDelete = this.objectives.Where(o => o.Id == id).FirstOrDefault();
 
             if (objectiveToDelete == null)
             {
