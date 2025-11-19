@@ -64,6 +64,7 @@ namespace InsTK
 
             // Data services
             builder.Services.AddTransient<ICoursesDataService, CoursesDataService>();
+            builder.Services.AddTransient<IObjectivesDataService, ObjectivesDataService>();
 
             // To enable web api
             builder.Services.AddControllers();

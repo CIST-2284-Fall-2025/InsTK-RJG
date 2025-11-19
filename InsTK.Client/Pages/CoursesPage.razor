@@ -1,4 +1,4 @@
-﻿@page "/client/courses"
+﻿@page "/courses"
 @using InsTK.Shared.ViewModels
 @rendermode InteractiveAuto
 
@@ -55,8 +55,8 @@ else
 </ModalDialogue>
 
     @code {
-    private ModalDialogue popup;
-    protected CoursesPageVM? model;
+    private ModalDialogue popup = default!;
+    protected CoursesPageVM model = default!;
 
     private PersistingComponentStateSubscription _subscription;
 

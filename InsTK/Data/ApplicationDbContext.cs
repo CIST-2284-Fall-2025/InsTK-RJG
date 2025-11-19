@@ -22,6 +22,14 @@ namespace InsTK.Data
         {
         }
 
+        /// <summary>
+        /// Gets or sets the collection of courses in the database.
+        /// </summary>
         public DbSet<Course> Courses { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of objectives in the database.
+        /// </summary>
+        public DbSet<Objective> Objectives { get; set; }
     }
 }
