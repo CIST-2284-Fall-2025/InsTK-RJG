@@ -93,7 +93,7 @@ else
 
     protected async Task UpdateCourseAsync()
     {
-        if (model.Course == null)
+        if (model?.Course == null)
         {
             //TODO: Display error
             return;
@@ -125,7 +125,12 @@ else
 
     protected void AddCourse()
     {
-        model.Course = new Course();
+        if (this.model == null )
+        {
+            //TODO: Display error
+            return;
+        }
+        this.model.Course = new Course();
         popup.ShowModal();
     }
 }

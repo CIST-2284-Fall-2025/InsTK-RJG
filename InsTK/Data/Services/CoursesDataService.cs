@@ -15,6 +15,10 @@ namespace InsTK.Data.Services
     {
         private readonly ApplicationDbContext context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CoursesDataService"/> class.
+        /// </summary>
+        /// <param name="context">The database context to use for data operations.</param>
         public CoursesDataService(ApplicationDbContext context)
         {
             this.context = context;
@@ -26,8 +30,7 @@ namespace InsTK.Data.Services
         /// <returns>A task that represents the asynchronous operation. The task result contains a list of courses.</returns>
         public async Task<List<Course>> GetAllAsync()
         {
-            await Task.Delay(5000); // Simulate long load
-            return await context.Courses.ToListAsync();
+            return await this.context.Courses.ToListAsync();
         }
 
         /// <summary>
@@ -38,8 +41,8 @@ namespace InsTK.Data.Services
         public async Task AddAsync(Course course)
         {
             course.Id = Guid.NewGuid().ToString();
-            context.Courses.Add(course);
-            await context.SaveChangesAsync();
+            this.context.Courses.Add(course);
+            await this.context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -50,7 +53,12 @@ namespace InsTK.Data.Services
         public async Task UpdateAsync(Course course)
         {
             // Find the one in the database
-            var curentCourse = await context.Courses.Where(c=>c.Id == course.Id).FirstOrDefaultAsync();
+            var curentCourse = await this.context.Courses.Where(c=>c.Id == course.Id).FirstOrDefaultAsync();
+
+            if (curentCourse == null)
+            {
+                throw new InvalidOperationException("Course not found.");
+            }
 
             // Update it from the values in the parameter course
             curentCourse.Number = course.Number;
@@ -58,7 +66,7 @@ namespace InsTK.Data.Services
             curentCourse.Description = course.Description;
 
             // Save changes.
-            await context.SaveChangesAsync();
+            await this.context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -73,7 +81,7 @@ namespace InsTK.Data.Services
 
             if (curentCourse == null)
             {
-                return;
+                throw new InvalidOperationException("Course not found.");
             }
 
             this.context.Courses.Remove(curentCourse);
