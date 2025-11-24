@@ -6,7 +6,7 @@
 @inject PersistentComponentState ApplicationState
 
 <h3>Objectives Page</h3>
-@if (this.model.Objectives == null)
+@if (this.model?.Objectives == null)
 {
     <p>...loading</p>
 }
@@ -26,7 +26,7 @@ else
 }
 
 <ModalDialogue @ref="dialogue" Title="Edit Objective" SubmitMethod="UpdateObjectiveAsync">
-    @if (this.model.Objective == null)
+    @if (this.model?.Objective == null)
     {
         <p>Please select a course from above.</p>
     }
@@ -63,9 +63,17 @@ else
     {
         _subscription = ApplicationState.RegisterOnPersisting(Persist);
 
-        model = new ObjectivesPageVM();
-        model.Objectives = await dataService.GetAllAsync();
-        model.Objective = null;
+        var foundInState = ApplicationState.TryTakeFromJson<ObjectivesPageVM>("objectives", out ObjectivesPageVM? storedState);
+        if (foundInState && storedState != null)
+        {
+            model = storedState;
+        }
+        else
+        {
+            model = new ObjectivesPageVM();
+            model.Objectives = await dataService.GetAllAsync();
+            model.Objective = null;
+        }
     }
 
     private Task Persist()
