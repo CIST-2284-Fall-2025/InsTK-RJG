@@ -28,7 +28,7 @@ else
     <button class="btn btn-primary" type="button" @onclick="AddCourse">Add Course</button>
 }
 
-<ModalDialogue @ref="popup" Title="Test Message" SubmitMethod="UpdateCourseAsync">
+<ModalDialogue @ref="dialogue" Title="Test Message" SubmitMethod="UpdateCourseAsync">
     @if (model?.Course == null)
     {
         <p>Please select a course from above.</p>
@@ -55,7 +55,7 @@ else
 </ModalDialogue>
 
     @code {
-    private ModalDialogue popup = default!;
+    private ModalDialogue dialogue = default!;
     protected CoursesPageVM model = default!;
 
     private PersistingComponentStateSubscription _subscription;
@@ -88,7 +88,7 @@ else
     protected void SelectCourse(Course course)
     {
         this.model.Course = course;
-        popup.ShowModal();
+        dialogue.ShowModal();
     }
 
     protected async Task UpdateCourseAsync()
@@ -109,7 +109,7 @@ else
         }
         model.Course = null;
         StateHasChanged();
-        popup.CloseModal();
+        dialogue.CloseModal();
     }
 
     protected async Task DeleteCourseAsync(Course course)
@@ -131,6 +131,6 @@ else
             return;
         }
         this.model.Course = new Course();
-        popup.ShowModal();
+        dialogue.ShowModal();
     }
 }
