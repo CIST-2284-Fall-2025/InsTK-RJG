@@ -33,5 +33,10 @@ namespace InsTK.Shared.Models
         /// Gets or sets the description of the objective.
         /// </summary>
         public string? Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of courses associated with the entity.
+        /// </summary>
+        public List<Course>? Courses { get; set; }
     }
 }

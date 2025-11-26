@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11222.15 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsTK", "InsTK\InsTK.csproj", "{848D4CCE-CBBD-4683-8C7A-8033BDC3FE35}"
 EndProject
@@ -14,6 +14,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsTK.Shared", "InsTK.Shared\InsTK.Shared.csproj", "{24EFFEB3-538F-4A25-ADD5-F9E6CF90F4A2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsTKTest", "InsTKTest\InsTKTest.csproj", "{88DE9972-A997-4A36-A1E8-06FF1C6080BE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Design Notes", "Design Notes", "{514E8758-BA01-4263-9028-1DC6F019B837}"
+	ProjectSection(SolutionItems) = preProject
+		InstructorCourseDevelopmentWorflows.md = InstructorCourseDevelopmentWorflows.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
