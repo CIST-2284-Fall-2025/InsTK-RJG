@@ -11,7 +11,7 @@ namespace Utilities
 
         public int CountOccurances(string stringToCheck, string stringToFind)
         {
-            if(stringToCheck == null)
+            if (stringToCheck == null)
             {
                 return -1;
             }

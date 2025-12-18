@@ -1,20 +1,31 @@
-using System.Security.Claims;
-using System.Text.Json;
-using InsTK.Components.Account.Pages;
-using InsTK.Components.Account.Pages.Manage;
-using InsTK.Data;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
+// <copyright file="IdentityComponentsEndpointRouteBuilderExtensions.cs" company="Rob Garner (rgarner011235@gmail.com)">
+// Copyright (c) Rob Garner (rgarner011235@gmail.com). All rights reserved.
+// </copyright>
 
-namespace Microsoft.AspNetCore.Routing
+namespace InsTK.Server.Components.Account
 {
+    using System.Security.Claims;
+    using System.Text.Json;
+    using InsTK.Server.Components.Account.Pages;
+    using InsTK.Server.Components.Account.Pages.Manage;
+    using InsTK.Server.Data;
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Components.Authorization;
+    using Microsoft.AspNetCore.Http.Extensions;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Primitives;
+
+    /// <summary>
+    /// Provides extension methods for mapping additional identity-related endpoints required by Identity Razor components.
+    /// </summary>
     internal static class IdentityComponentsEndpointRouteBuilderExtensions
     {
-        // These endpoints are required by the Identity Razor components defined in the /Components/Account/Pages directory of this project.
+        /// <summary>
+        /// Maps additional endpoints required by the Identity Razor components in the /Components/Account/Pages directory.
+        /// </summary>
+        /// <param name="endpoints">The endpoint route builder to add endpoints to.</param>
+        /// <returns>An <see cref="IEndpointConventionBuilder"/> for further configuration of the endpoints.</returns>
         public static IEndpointConventionBuilder MapAdditionalIdentityEndpoints(this IEndpointRouteBuilder endpoints)
         {
             ArgumentNullException.ThrowIfNull(endpoints);
@@ -28,8 +39,8 @@ namespace Microsoft.AspNetCore.Routing
                 [FromForm] string returnUrl) =>
             {
                 IEnumerable<KeyValuePair<string, StringValues>> query = [
-                    new("ReturnUrl", returnUrl),
-                    new("Action", ExternalLogin.LoginCallbackAction)];
+                    new ("ReturnUrl", returnUrl),
+                    new ("Action", ExternalLogin.LoginCallbackAction)];
 
                 var redirectUrl = UriHelper.BuildRelative(
                     context.Request.PathBase,

@@ -1,7 +1,7 @@
-using InsTK.Data;
+using InsTK.Server.Data;
 using Microsoft.AspNetCore.Identity;
 
-namespace InsTK.Components.Account
+namespace InsTK.Server.Components.Account
 {
     internal sealed class IdentityUserAccessor(UserManager<ApplicationUser> userManager, IdentityRedirectManager redirectManager)
     {

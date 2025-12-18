@@ -1,13 +1,13 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
-namespace InsTK.Components.Account
+namespace InsTK.Server.Components.Account
 {
     internal sealed class IdentityRedirectManager(NavigationManager navigationManager)
     {
         public const string StatusCookieName = "Identity.StatusMessage";
 
-        private static readonly CookieBuilder StatusCookieBuilder = new()
+        private static readonly CookieBuilder StatusCookieBuilder = new ()
         {
             SameSite = SameSiteMode.Strict,
             HttpOnly = true,

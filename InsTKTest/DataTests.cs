@@ -1,6 +1,6 @@
 ﻿namespace InsTKTest
 {
-    using InsTK.Data.Mocks;
+    using InsTK.Server.Data.Mocks;
     using InsTK.Shared.Models;
     using System.Threading.Tasks;
 

@@ -1,8 +1,8 @@
-// <copyright file="ApplicationDbContext.cs" company="Rob Garner (rgarner7@cnm.edu)">
-// Copyright (c) Rob Garner (rgarner7@cnm.edu). All rights reserved.
+// <copyright file="ApplicationDbContext.cs" company="Rob Garner (rgarner011235@gmail.com)">
+// Copyright (c) Rob Garner (rgarner011235@gmail.com). All rights reserved.
 // </copyright>
 
-namespace InsTK.Data
+namespace InsTK.Server.Data
 {
     using InsTK.Shared.Models;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

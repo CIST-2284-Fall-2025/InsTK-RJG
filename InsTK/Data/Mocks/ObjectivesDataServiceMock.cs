@@ -1,8 +1,8 @@
-﻿// <copyright file="ObjectivesDataServiceMock.cs" company="Rob Garner (rgarner7@cnm.edu)">
-// Copyright (c) Rob Garner (rgarner7@cnm.edu). All rights reserved.
+﻿// <copyright file="ObjectivesDataServiceMock.cs" company="Rob Garner (rgarner011235@gmail.com)">
+// Copyright (c) Rob Garner (rgarner011235@gmail.com). All rights reserved.
 // </copyright>
 
-namespace InsTK.Data.Mocks
+namespace InsTK.Server.Data.Mocks
 {
     using InsTK.Shared.Interfaces;
     using InsTK.Shared.Models;

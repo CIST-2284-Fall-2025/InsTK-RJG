@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.0.11222.15 d18.0
+VisualStudioVersion = 18.0.11222.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsTK", "InsTK\InsTK.csproj", "{848D4CCE-CBBD-4683-8C7A-8033BDC3FE35}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsTK.Server", "InsTK\InsTK.Server.csproj", "{848D4CCE-CBBD-4683-8C7A-8033BDC3FE35}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsTK.Client", "InsTK.Client\InsTK.Client.csproj", "{C7B0A1A8-A118-4842-9B32-02DA24067283}"
 EndProject
@@ -18,6 +18,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Design Notes", "Design Notes", "{514E8758-BA01-4263-9028-1DC6F019B837}"
 	ProjectSection(SolutionItems) = preProject
 		InstructorCourseDevelopmentWorflows.md = InstructorCourseDevelopmentWorflows.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C94FBD8A-449C-42FA-ACB8-D6F9D44D44CA}"
+	ProjectSection(SolutionItems) = preProject
+		deploy-plesk.yml = deploy-plesk.yml
 	EndProjectSection
 EndProject
 Global
