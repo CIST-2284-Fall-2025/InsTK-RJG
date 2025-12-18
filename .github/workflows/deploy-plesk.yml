@@ -1,0 +1,92 @@
+﻿name: Build and Deploy Blazor to Plesk
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch: {}
+
+env:
+  # ===== Project identity =====
+  APP_NAME: InsTK
+  SERVER_PROJECT_DIR: InsTK.Server
+  SERVER_PROJECT_FILE: InsTK.Server.csproj
+
+  # ===== Build configuration =====
+  DOTNET_VERSION: 8.0.x
+  RUNTIME_ID: win-x64
+  PUBLISH_DIR: ./publish
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Create appsettings.Production.json
+        env:
+          PROD_SQL_CONNECTION: ${{ secrets.PROD_SQL_CONNECTION }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+        run: |
+          cat > ${{ env.SERVER_PROJECT_DIR }}/appsettings.Production.json <<EOF
+          {
+            "ConnectionStrings": {
+              "DefaultConnection": "${PROD_SQL_CONNECTION}"
+            },
+            "Admin": {
+              "Email": "${ADMIN_EMAIL}",
+              "Password": "${ADMIN_PASSWORD}"
+            },
+            "Logging": {
+              "LogLevel": {
+                "Default": "Information",
+                "Microsoft.AspNetCore": "Warning"
+              }
+            },
+            "AllowedHosts": "*"
+          }
+          EOF
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Publish ${{ env.APP_NAME }} (self-contained)
+        run: |
+          dotnet publish \
+            ${{ env.SERVER_PROJECT_DIR }}/${{ env.SERVER_PROJECT_FILE }} \
+            --configuration Release \
+            --runtime ${{ env.RUNTIME_ID }} \
+            --self-contained true \
+            -p:PublishTrimmed=false \
+            --output ${{ env.PUBLISH_DIR }}
+
+      - name: Verify web.config exists (IIS requirement)
+        run: |
+          test -f "${{ env.PUBLISH_DIR }}/web.config" \
+            && echo "web.config present for ${{ env.APP_NAME }} ✅" \
+            || (echo "web.config missing ❌" && exit 1)
+
+      - name: List published files
+        run: ls -R ${{ env.PUBLISH_DIR }}
+
+      - name: Deploy ${{ env.APP_NAME }} via FTPS to Plesk
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: ${{ env.PUBLISH_DIR }}/
+          server-dir: ${{ secrets.FTP_REMOTE_DIR }}/
+          # dangerous-clean-slate: true
