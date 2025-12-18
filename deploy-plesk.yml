@@ -52,7 +52,7 @@ jobs:
 
       - name: Publish self-contained(win-x64 example)
         run: | 
-          dotnet publish HackerSpace.Server/HackerSpace.Server.csproj \
+          dotnet publish InsTK.Server/InsTK.Server.csproj \
               --configuration Release \
               --runtime win-x64 \
               --self-contained true \

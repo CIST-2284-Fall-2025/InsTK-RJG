@@ -1,4 +1,4 @@
-﻿namespace InsTKTest
+﻿namespace InsTK.Test
 {
     using InsTK.Server.Data.Mocks;
     using InsTK.Shared.Models;
