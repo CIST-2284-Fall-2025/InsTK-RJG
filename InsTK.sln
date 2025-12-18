@@ -20,11 +20,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Design Notes", "Design Note
 		InstructorCourseDevelopmentWorflows.md = InstructorCourseDevelopmentWorflows.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C94FBD8A-449C-42FA-ACB8-D6F9D44D44CA}"
-	ProjectSection(SolutionItems) = preProject
-		deploy-plesk.yml = deploy-plesk.yml
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
