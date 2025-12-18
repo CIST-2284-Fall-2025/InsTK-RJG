@@ -1,14 +1,20 @@
-name: Build and Deploy Blazor to Plesk
+﻿name: Build and Deploy Blazor to Plesk
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch: {}
 
 env:
-  PUBLISH_DIR: ./publish
+  # ===== Project identity =====
+  APP_NAME: InsTK
+  SERVER_PROJECT_DIR: InsTK.Server
+  SERVER_PROJECT_FILE: InsTK.Server.csproj
+
+  # ===== Build configuration =====
   DOTNET_VERSION: 8.0.x
-  PROD_SQL_CONNECTION: ${{ secrets.PROD_SQL_CONNECTION }}
+  RUNTIME_ID: win-x64
+  PUBLISH_DIR: ./publish
 
 jobs:
   build-and-deploy:
@@ -27,15 +33,19 @@ jobs:
         run: dotnet restore
 
       - name: Create appsettings.Production.json
+        env:
+          PROD_SQL_CONNECTION: ${{ secrets.PROD_SQL_CONNECTION }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
         run: |
-          cat <<EOF > HackerSpace.Server/appsettings.Production.json
+          cat > ${{ env.SERVER_PROJECT_DIR }}/appsettings.Production.json <<EOF
           {
             "ConnectionStrings": {
-              "DefaultConnection": "$PROD_SQL_CONNECTION"
+              "DefaultConnection": "${PROD_SQL_CONNECTION}"
             },
             "Admin": {
-              "Email": "${{ secrets.ADMIN_EMAIL }}",
-              "Password": "${{ secrets.ADMIN_PASSWORD }}"
+              "Email": "${ADMIN_EMAIL}",
+              "Password": "${ADMIN_PASSWORD}"
             },
             "Logging": {
               "LogLevel": {
@@ -50,20 +60,26 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
-      - name: Publish self-contained(win-x64 example)
-        run: | 
-          dotnet publish InsTK.Server/InsTK.Server.csproj \
-              --configuration Release \
-              --runtime win-x64 \
-              --self-contained true \
-              /p:PublishTrimmed=false \
-              --output ${{ env.PUBLISH_DIR }}
+      - name: Publish ${{ env.APP_NAME }} (self-contained)
+        run: |
+          dotnet publish \
+            ${{ env.SERVER_PROJECT_DIR }}/${{ env.SERVER_PROJECT_FILE }} \
+            --configuration Release \
+            --runtime ${{ env.RUNTIME_ID }} \
+            --self-contained true \
+            -p:PublishTrimmed=false \
+            --output ${{ env.PUBLISH_DIR }}
 
-      # Optional: show what got published (for debugging)
+      - name: Verify web.config exists (IIS requirement)
+        run: |
+          test -f "${{ env.PUBLISH_DIR }}/web.config" \
+            && echo "web.config present for ${{ env.APP_NAME }} ✅" \
+            || (echo "web.config missing ❌" && exit 1)
+
       - name: List published files
         run: ls -R ${{ env.PUBLISH_DIR }}
 
-      - name: Deploy via FTP to Plesk
+      - name: Deploy ${{ env.APP_NAME }} via FTPS to Plesk
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -73,3 +89,4 @@ jobs:
           port: 21
           local-dir: ${{ env.PUBLISH_DIR }}/
           server-dir: ${{ secrets.FTP_REMOTE_DIR }}/
+          # dangerous-clean-slate: true
