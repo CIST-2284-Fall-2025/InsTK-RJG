@@ -25,7 +25,7 @@ namespace InsTK.Server
         /// The main entry point for the InsTK application.
         /// </summary>
         /// <param name="args">An array of command-line arguments.</param>
-        /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -80,6 +80,7 @@ namespace InsTK.Server
             else
             {
                 app.UseExceptionHandler("/Error");
+
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -126,7 +127,7 @@ namespace InsTK.Server
                     user.UserName = email;
 
                     // Optional, add if you want the account live right away without email confirmation
-                    user.EmailConfirmed = true; 
+                    user.EmailConfirmed = true;
 
                     var results = await userManager.CreateAsync(user, password);
                     await userManager.AddToRoleAsync(user, "Admin");

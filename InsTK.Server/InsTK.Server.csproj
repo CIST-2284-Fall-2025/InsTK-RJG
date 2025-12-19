@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.15">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <ProjectReference Include="..\InsTK.Client\InsTK.Client.csproj" />
     <ProjectReference Include="..\InsTK.Shared\InsTK.Shared.csproj" />
     <PackageReference Include="Blazor.Bootstrap" Version="3.4.0" />
