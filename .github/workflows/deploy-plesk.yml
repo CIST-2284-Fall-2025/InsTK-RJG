@@ -89,4 +89,4 @@ jobs:
           port: 21
           local-dir: ${{ env.PUBLISH_DIR }}/
           server-dir: ${{ secrets.FTP_REMOTE_DIR }}/
-          # dangerous-clean-slate: true
+          dangerous-clean-slate: true
